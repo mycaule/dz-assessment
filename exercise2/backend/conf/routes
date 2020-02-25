@@ -1,0 +1,11 @@
+GET     /                      controllers.HomeController.index
+GET     /api/hello             controllers.HomeController.hello
+POST    /api/hello             controllers.HomeController.helloNbr(nbr: Int)
+POST    /api/track/:objId      controllers.HomeController.setTrackTags(objId: Int)
+POST    /api/album/:objId      controllers.HomeController.setAlbumTags(objId: Int)
+POST    /api/artist/:objId     controllers.HomeController.setArtistTags(objId: Int)
+GET     /api/track             controllers.HomeController.getTracks(tags: Seq[String])
+GET     /api/album             controllers.HomeController.getAlbums(tags: Seq[String])
+GET     /api/artist            controllers.HomeController.getArtists(tags: Seq[String])
+GET     /api/export            controllers.HomeController.export
+GET     /*file                 controllers.HomeController.assetOrDefault(file)

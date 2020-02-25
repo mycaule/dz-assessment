@@ -1,0 +1,22 @@
+# Python related
+**/.ipynb_checkpoints
+**/.metaflow
+
+# Scala related
+target
+dist
+data
+
+project/target
+project/project/target
+*/target
+frontend/build
+backend/conf/secrets.conf
+
+/database
+
+log
+logs
+
+*.svg
+*.map
