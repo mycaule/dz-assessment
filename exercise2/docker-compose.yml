@@ -6,19 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '8080:8080'
+      - '9000:9000'
     volumes:
-      - './:/'
+      - 'backend/:/backend/'
     command: >
       sh -c 'sbt backend/run'
     environment:
-      - DB_HOST=db
-      - DB_NAME=app
-      - DB_PASS=supersecretpassword
-      - DB_USER=postgres
-      - SECRET_KEY=foo
-      - DEBUG=1
-      - DB_PORT=5432
+      - APPLICATION_SECRET=fooo
+      - JDBC_DATABASE_URL='jdbc:postgresql://localhost:5432/michel?user=michel&password=1234'
     depends_on:
       - database
   database:
@@ -28,11 +23,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=app
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=supersecretpassword
+      - POSTGRES_DB=michel
+      - POSTGRES_USER=michel
+      - POSTGRES_PASSWORD=1234
 volumes:
   postgres_data:
-  nodemodules:
+  backend:
     external:
       true

@@ -46,28 +46,35 @@ The frontend uses the Laminar framework for UI rendering.
 cd exercise2/
 sbt stage
 
-export JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/michel?user=michel&password="
-sbt dev
 sbt backend/run
+```
+
+**Using Docker**
+
+```bash
+docker volume create --name=postgres_data
+docker volume create --name=backend
+docker-compose up backend
 ```
 
 **To deploy on Heroku**
 
 ```bash
+# First create the resources on Heroku's side
 heroku login
 heroku apps:create dz-assessment --region eu
 heroku addons:create heroku-postgresql:hobby-dev
 heroku config:set APPLICATION_SECRET=mycoolsecret
 
+# To build from scratch and deploy remotely
 sbt clean stage backend/deployHeroku
 ```
-Documentation: https://documenter.getpostman.com/view/9909796/SzKVRJFf
+Documentation: [Postman](https://documenter.getpostman.com/view/9909796/SzKVRJFf)
 
 ### References
 
 - [Netflix - Open-Sourcing Metaflow, a Human-Centric Framework for Data Science](https://netflixtechblog.com/open-sourcing-metaflow-a-human-centric-framework-for-data-science-fa72e04a5d9)
   - [`Netflix/metaflow/tutorials/02-statistics`](https://github.com/Netflix/metaflow/tree/master/metaflow/tutorials/02-statistics)
-  - [`xbenji/deezer_data`](https://github.com/xbenji/deezer_data)
 - [Heroku - Getting started with Scala and Play](https://devcenter.heroku.com/articles/getting-started-with-scala)
   - [Antoine Doeraene - Deploying a full stack Scala application on Heroku](https://medium.com/@antoine.doeraene/deploying-a-full-stack-scala-application-on-heroku-6d8093a913b3)
   - [`sherpal/full-scala-scala-heroku`](https://github.com/sherpal/full-scala-scala-heroku)
