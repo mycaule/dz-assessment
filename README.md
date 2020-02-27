@@ -44,9 +44,10 @@ The frontend uses the Laminar framework for UI rendering.
 
 ```bash
 cd exercise2/
-sbt compile
+sbt stage
 
-export DATABASE_URL=postgres://$(whoami)
+export JDBC_DATABASE_URL="jdbc:postgresql://localhost:5432/michel?user=michel&password="
+sbt dev
 sbt backend/run
 ```
 

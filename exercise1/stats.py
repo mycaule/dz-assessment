@@ -3,14 +3,17 @@ import datetime
 import re
 import os
 import pandas
-from io import StringIO
 
 
 def script_path(filename):
-    "Convenience function to get the absolute path to a file"
+    "Gets the absolute path of a file"
     filepath = os.path.join(os.path.dirname(__file__))
     return os.path.join(filepath, filename)
 
+def read_log(filename):
+    """Failsafe way to read CSV"""
+    df = pandas.read_csv(script_path(filename), sep='|', usecols=[0,1,2], names=['song_id', 'user_id', 'country'])
+    return df.dropna(thresh=3)
 
 class ListeningStatsFlow(FlowSpec):
     """
@@ -37,13 +40,16 @@ class ListeningStatsFlow(FlowSpec):
         td = datetime.datetime.today()
         lastWeek = ["listens-%s.log" % (td - datetime.timedelta(i)).strftime('%Y%m%d') for i in range(7)]
 
+        # Test the CSV reading function on a sample file with invalid lines
+        # print(read_log("listens-test.log").to_string())
+
         df0 = pandas.DataFrame(columns=['song_id', 'user_id', 'country', 'listens'])
-        for pfile in os.listdir('.'):
+        for pfile in os.listdir(script_path('.')):
             dateSearch = re.search('listens-\d{4}\d{2}\d{2}.log', pfile)
             if dateSearch:
                   dateFound = dateSearch.group(0)
                   if dateFound in lastWeek:
-                      df = pandas.read_csv(dateFound, sep='|', usecols=[0,1,2], names=['song_id', 'user_id', 'country'])
+                      df = read_log(dateFound)
                       df = df.groupby(['song_id', 'user_id', 'country']).size().reset_index(name='listens')
                       df0 = df0.append(df, sort=False)
 
