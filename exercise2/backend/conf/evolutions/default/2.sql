@@ -1,10 +1,9 @@
 -- !Ups
+INSERT INTO content_types (name)
+VALUES ('track'), ('album'), ('artist');
+
 INSERT INTO tags (name)
-VALUES
-  ('house'),
-  ('electronic'),
-  ('dance'),
-  ('disco');
+VALUES ('house'), ('electronic'), ('dance'), ('disco');
 
 INSERT INTO bookmarks (obj_id, obj_type, tag_name)
 VALUES

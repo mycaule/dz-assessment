@@ -25,17 +25,13 @@ object App {
   val tagToPost: Var[String] = Var("rock")
 
   val returned: EventStream[String] = insertBus.events.flatMap(
-    nbr =>
-      EventStream.fromFuture(
-        boilerplate
-          .response(asStringAlways)
-          .post(path("hello").param("nbr", nbr.toString))
-          .send()
-          .map(_.body)
-      )
-  )
+    nbr => EventStream.fromFuture(
+      boilerplate.response(asStringAlways)
+        .post(path("hello").param("nbr", nbr.toString))
+        .send().map(_.body)
+    ))
 
-  def randomBookmark(): Bookmark = Bookmark(Random.nextInt(), Random.nextInt(), Random.nextString(5), Random.nextString(5))
+  def randomBookmark(): Bookmark = Bookmark(Random.nextInt(), "track", "dance")
 
   def apply(): ReactiveHtmlElement[html.Div] = div(
     className := "App",
@@ -66,18 +62,10 @@ object App {
     ),
     section(
       h2("Insert Random"),
-      p(
-        button(
-          onClick --> (
-              _ =>
-                boilerplate
-                  .response(ignore)
-                  .post(path("track", "42"))
-                  .body(randomBookmark())
-                  .send()
-            ),
-          "Insert random element"
-        )
+      p(button(onClick --> (_ => boilerplate.response(ignore)
+          .post(path("track", "42")).body(randomBookmark())
+          .send()
+        ), "Insert random element")
       ), {
         val exportBus = new EventBus[Boolean]()
 
@@ -86,15 +74,11 @@ object App {
           ul(
             children <-- exportBus.events.flatMap(
               _ =>
-                EventStream
-                  .fromFuture(
-                    boilerplate
-                      .get(path("export"))
-                      .response(asStringAlways.map(decode[List[Bookmark]]))
-                      .send()
-                      .map(_.body.getOrElse(Nil))
-                  )
-                  .map(_.map(_.toString).map(li(_)))
+                EventStream.fromFuture(
+                  boilerplate.get(path("export"))
+                    .response(asStringAlways.map(decode[List[Bookmark]]))
+                    .send().map(_.body.getOrElse(Nil)))
+                .map(_.map(_.toString).map(li(_)))
             )
           )
         )

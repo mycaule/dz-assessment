@@ -1,6 +1,5 @@
 package models
 
-// TODO delete
-// final case class SharedModel(foo: String, bar: Int)
-final case class Tag(name: String)
-final case class Bookmark(id: Int, obj_id: Int, obj_type: String, tag_name: String)
+case class ContentType(name: String)
+case class ContentTag(name: String)
+case class Bookmark(objId: Int, objType: String, tagName: String)
