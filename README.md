@@ -78,6 +78,8 @@ Documentation: [Postman](https://documenter.getpostman.com/view/9909796/SzKVRJFf
 - [Heroku - Getting started with Scala and Play](https://devcenter.heroku.com/articles/getting-started-with-scala)
   - [Antoine Doeraene - Deploying a full stack Scala application on Heroku](https://medium.com/@antoine.doeraene/deploying-a-full-stack-scala-application-on-heroku-6d8093a913b3)
   - [`sherpal/full-scala-scala-heroku`](https://github.com/sherpal/full-scala-scala-heroku)
+  - [`xbenji/deezer_data`](https://github.com/xbenji/deezer_data)
 - [Philipp Keller - Tags: Database schemas](http://howto.philippkeller.com/2005/04/24/Tags-Database-schemas/), [performance tests](http://howto.philippkeller.com/2005/06/19/Tagsystems-performance-tests/)
+- [Slick Manual - Queries](https://scala-slick.org/doc/3.0.0/queries.html)
 - [Deezer developers - API explorer](https://developers.deezer.com/api/explorer)
 - [Deezer developers - JavaScript SDK](https://developers.deezer.com/sdk/javascript/api)
